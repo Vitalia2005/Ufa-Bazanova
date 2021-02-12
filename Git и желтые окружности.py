@@ -1,14 +1,14 @@
 import sys
 import random
-from PyQt5 import uic
+from UI import Ui_MainWindow
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5.QtGui import QPainter, QColor, QPen
 
 
-class CirclesMainWindow(QMainWindow):
+class CirclesMainWindow(Ui_MainWindow, QMainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi('UI.ui', self)
+        self.setupUi(self)
         self.circles = []
         self.draw_btn.clicked.connect(self.add_circle)
 
@@ -16,7 +16,8 @@ class CirclesMainWindow(QMainWindow):
         diameter = random.randint(1, min([self.width(), self.height()]))
         x = random.randint(0, self.width() - diameter - 1)
         y = random.randint(0, self.height() - diameter - 1)
-        self.circles += [((255, 255, 0), (x, y, diameter, diameter))]
+        k = (random.randint(0, 256), random.randint(0, 256), random.randint(0, 256))
+        self.circles += [(k, (x, y, diameter, diameter))]
         self.update()
 
     def draw_circles(self, qp):
